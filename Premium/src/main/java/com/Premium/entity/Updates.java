@@ -1,6 +1,6 @@
 package com.Premium.entity;
 
-import java.util.List;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,33 +9,32 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Data;
 
-@Data
 @Entity
-@Table(name = "Clients")
-public class Client {
-	
+@Table(name = "Updates")
+@Data
+public class Updates {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer client_id;
+	private Long update_id;
 	
 	@Column
-	private String client_name;
-	
-	@Column
-	private String contact_number;
-	
-	@Column
-	private String email_id;
+	private Date status_changed_at;
 	
 	@ManyToOne
-	@JoinColumn(name = "location_id")
-	private Address address;
+	@JoinColumn(name = "status_flow_id")
+	private StatusFlow status_change;
 	
-	@OneToMany
-	private List<Project> projects;
+	@ManyToOne
+	@JoinColumn(name = "task_id", nullable = false)
+	private Task task;
+	
+	@ManyToOne
+	@JoinColumn(name = "employee_id", nullable = false)
+	private Employee employee;
+	
 }

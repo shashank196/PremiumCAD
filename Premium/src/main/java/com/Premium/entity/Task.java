@@ -1,5 +1,6 @@
 package com.Premium.entity;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -13,29 +14,39 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Data;
+import lombok.NonNull;
 
-@Data
 @Entity
-@Table(name = "Clients")
-public class Client {
-	
+@Table(name = "Task")
+@Data
+public class Task {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer client_id;
-	
-	@Column
-	private String client_name;
-	
-	@Column
-	private String contact_number;
-	
-	@Column
-	private String email_id;
+	private Long task_id;
 	
 	@ManyToOne
-	@JoinColumn(name = "location_id")
-	private Address address;
+	@JoinColumn(name = "status_flow_id")
+	private StatusFlow currentStatus;
+	
+	@Column
+	@NonNull
+	private String task_description;
+	
+	@Column
+	private Date task_created_at;
+	
+	@ManyToOne
+	@JoinColumn(name = "project_id", nullable = false)
+	private Project project;
+	
+	@ManyToOne
+	@JoinColumn(name = "employee_id", nullable = false)
+	private Employee assigned_to;
 	
 	@OneToMany
-	private List<Project> projects;
+	private List<Files> files_attached;
+	
+	
+	
 }

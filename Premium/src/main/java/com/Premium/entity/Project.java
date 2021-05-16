@@ -14,28 +14,38 @@ import javax.persistence.Table;
 
 import lombok.Data;
 
-@Data
 @Entity
-@Table(name = "Clients")
-public class Client {
+@Table(name = "Project")
+@Data
+public class Project {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer client_id;
+	private Integer project_id;
 	
 	@Column
-	private String client_name;
+	private String project_name;
 	
 	@Column
-	private String contact_number;
+	private String project_description;
 	
 	@Column
-	private String email_id;
+	private Double project_price;
 	
 	@ManyToOne
-	@JoinColumn(name = "location_id")
-	private Address address;
+	@JoinColumn(name = "client_id", nullable = false)
+	private Client client;
+	
+	@ManyToOne
+	@JoinColumn(name = "employee_id", nullable = false)
+	private Employee project_manager;
 	
 	@OneToMany
-	private List<Project> projects;
+	private List<Task> tasks;
+	
+	@OneToMany
+	private List<Updates> updates;
+	
+	@OneToMany
+	private List<Comments> comments;
 }

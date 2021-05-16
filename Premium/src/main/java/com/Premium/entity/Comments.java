@@ -1,6 +1,6 @@
 package com.Premium.entity;
 
-import java.util.List;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,33 +9,29 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Data;
+import lombok.NonNull;
 
-@Data
 @Entity
-@Table(name = "Clients")
-public class Client {
-	
+@Table(name = "Comments")
+@Data
+public class Comments {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer client_id;
+	private Long comment_id;
 	
 	@Column
-	private String client_name;
+	@NonNull
+	private String comment_description;
 	
 	@Column
-	private String contact_number;
-	
-	@Column
-	private String email_id;
+	private Date comment_created_at;
 	
 	@ManyToOne
-	@JoinColumn(name = "location_id")
-	private Address address;
+	@JoinColumn(name = "task_id", nullable = false)
+	private Task task;
 	
-	@OneToMany
-	private List<Project> projects;
 }
