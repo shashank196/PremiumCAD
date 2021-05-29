@@ -231,3 +231,5 @@ Insert into status_flow values (5,'quality check','quality assurance');
 select  c.client_name, count(*)
 from clients c join project p on c.client_id = p.client_id
 group by c.client_id;
+
+select * from employee;

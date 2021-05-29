@@ -24,29 +24,29 @@ public class TaskEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long task_id;
+	private Long taskId;
 	
 	@ManyToOne
-	@JoinColumn(name = "status_flow_id")
+	@JoinColumn(name = "statusFlowId")
 	private StatusFlowEntity currentStatus;
 	
 	@Column
 	@NonNull
-	private String task_description;
+	private String taskDescription;
 	
 	@Column
-	private Date task_created_at;
+	private Date taskCreated_at;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "project_id", nullable = false)
+	@JoinColumn(name = "projectId", nullable = false)
 	private ProjectEntity project;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "employee_id", nullable = false)
-	private EmployeeEntity assigned_to;
+	@JoinColumn(name = "employeeId", nullable = false)
+	private EmployeeEntity assignedTo;
 	
 	@OneToMany
-	private List<FilesEntity> files_attached;
+	private List<FilesEntity> filesAttached;
 	
 	@OneToMany
 	private List<UpdatesEntity> updates;

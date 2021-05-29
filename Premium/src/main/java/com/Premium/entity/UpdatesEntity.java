@@ -21,21 +21,21 @@ public class UpdatesEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long update_id;
+	private Long updateId;
 	
 	@Column
-	private Date status_changed_at;
+	private Date statusChangedAt;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "status_flow_id")
+	@JoinColumn(name = "statusFlowId")
 	private StatusFlowEntity status_change;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "task_id", nullable = false)
+	@JoinColumn(name = "taskId", nullable = false)
 	private TaskEntity task;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "employee_id", nullable = false)
+	@JoinColumn(name = "employeeId", nullable = false)
 	private EmployeeEntity employee;
 	
 }

@@ -7,11 +7,11 @@ import javax.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name = "work_status_from")
+@Table(name = "workStatusFrom")
 @Data
 public class WorkStatusFromEntity {
 
 	@Id
-	private String status_from;	
+	private String statusFrom;	
 	
 }

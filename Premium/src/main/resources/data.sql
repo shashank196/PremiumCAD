@@ -20,14 +20,14 @@ Insert into Clients values (3, 'Jatin', '2345678921', 'dfnn@gmail.com', 1006);
 
 
 /* Employees  */
-insert into employee values (1,'Sagar','abcd@gmail.com','1234567899',1001);
-insert into employee values (2,'Kushagra','bcde@gmail.com','123',1001);
-insert into employee values (3,'Ayush','cdef@gmail.com','5244235848',1002);
-insert into employee values (4,'Rohit','defg@gmail.com','123545812',1002);
-insert into employee values (5,'Ashish','efgh@gmail.com','212155',1003);
-insert into employee values (6,'Baba','fghi@gmail.com','8751122585',1003);
-insert into employee values (7,'Mohit','ghij@gmail.com','5456122288',1004);
-insert into employee values (8,'Abhishek','hijk@gmail.com','41511255252',1003);
+insert into employee (employee_id, name, email_id, contact_number, location_id) values (1,'Sagar','abcd@gmail.com','1234567899',1001);
+insert into employee (employee_id, name, email_id, contact_number, location_id) values (2,'Kushagra','bcde@gmail.com','123',1001);
+insert into employee (employee_id, name, email_id, contact_number, location_id) values (3,'Ayush','cdef@gmail.com','5244235848',1002);
+insert into employee (employee_id, name, email_id, contact_number, location_id) values (4,'Rohit','defg@gmail.com','123545812',1002);
+insert into employee (employee_id, name, email_id, contact_number, location_id) values (5,'Ashish','efgh@gmail.com','212155',1003);
+insert into employee (employee_id, name, email_id, contact_number, location_id) values (6,'Baba','fghi@gmail.com','8751122585',1003);
+insert into employee (employee_id, name, email_id, contact_number, location_id) values (7,'Mohit','ghij@gmail.com','5456122288',1004);
+insert into employee (employee_id, name, email_id, contact_number, location_id) values (8,'Abhishek','hijk@gmail.com','41511255252',1003);
 
 
 /* Projects  */
