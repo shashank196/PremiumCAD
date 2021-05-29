@@ -2,23 +2,21 @@ package com.Premium.bean;
 
 import java.util.List;
 
-import org.springframework.stereotype.Component;
-
 import lombok.Data;
 
-@Component
 @Data
 public class Client {
 	
-	private Integer id;
-
-	private String client_name;
+	private Integer clientId;
 	
-	private String contact_number;
+	private String clientName;
 	
-	private String email_id;
+	private String contactNumber;
 	
-	private Location location;
+	private String emailId;
+	
+	private Adderss address;
 	
 	private List<Project> projects;
+	
 }

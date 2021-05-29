@@ -21,13 +21,13 @@ public class TransactionsEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long transaction_id;
+	private Long transactionId;
 	
 	@Column
-	private Date end_date;
+	private Date endDate;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "task_id", nullable = false)
+	@JoinColumn(name = "taskId", nullable = false)
 	private TaskEntity task;
 	
 }

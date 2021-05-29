@@ -11,13 +11,13 @@ import lombok.Data;
 @Data
 public class Task {
 	
-	private Integer task_id;
+	private Integer taskId;
 	
-	private TaskStatus current_status;
+	private TaskStatus currentStatus;
 	
-	private String task_description;
+	private String taskDescription;
 	
-	private Date task_created_at;
+	private Date taskCreatedAt;
 	
 	private List<Updates> updates;
 	

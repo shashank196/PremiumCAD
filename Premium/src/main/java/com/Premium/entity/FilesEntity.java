@@ -19,16 +19,16 @@ public class FilesEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long file_id;
+	private Long fileId;
 	
 	@Column
-	private String file_path;
+	private String filePath;
 	
 	@Column
-	private String file_name;
+	private String fileName;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "task_id", nullable = false)
+	@JoinColumn(name = "taskId", nullable = false)
 	private TaskEntity task;
 	
 }
