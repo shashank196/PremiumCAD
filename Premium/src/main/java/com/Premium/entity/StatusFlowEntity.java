@@ -12,20 +12,20 @@ import javax.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name = "status_flow")
+@Table(name = "statusFlow")
 @Data
 public class StatusFlowEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer status_flow_id;
+	private Integer statusFlowId;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "status_from", nullable = false)
-	private WorkStatusFromEntity status_from;
+	@JoinColumn(name = "statusFrom", nullable = false)
+	private WorkStatusFromEntity statusFrom;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "status_to", nullable = false)
-	private WorkStatusToEntity status_to;
+	@JoinColumn(name = "statusTo", nullable = false)
+	private WorkStatusToEntity statusTo;
 	
 }

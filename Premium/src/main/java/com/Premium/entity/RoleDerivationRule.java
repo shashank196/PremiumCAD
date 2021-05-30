@@ -18,5 +18,5 @@ public class RoleDerivationRule {
 	
 	@ManyToOne
 	@JoinColumn(name = "employee_id")
-	private Employee user_id;
+	private EmployeeEntity user_id;
 }

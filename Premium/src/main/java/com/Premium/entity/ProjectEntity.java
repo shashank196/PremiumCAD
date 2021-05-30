@@ -22,24 +22,24 @@ public class ProjectEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer project_id;
+	private Integer projectId;
 	
 	@Column
-	private String project_name;
+	private String projectName;
 	
 	@Column
-	private String project_description;
+	private String projectDescription;
 	
 	@Column
-	private Double project_price;
+	private Double projectPrice;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "client_id", nullable = false)
+	@JoinColumn(name = "clientId", nullable = false)
 	private ClientEntity client;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "employee_id", nullable = false)
-	private EmployeeEntity project_manager;
+	@JoinColumn(name = "employeeId", nullable = false)
+	private EmployeeEntity projectManager;
 	
 	@OneToMany
 	private List<TaskEntity> tasks;

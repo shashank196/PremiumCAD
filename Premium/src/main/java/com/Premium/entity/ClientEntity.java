@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,19 +23,19 @@ public class ClientEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer client_id;
+	private Integer clientId;
 	
 	@Column
-	private String client_name;
+	private String clientName;
 	
 	@Column
-	private String contact_number;
+	private String contactNumber;
 	
 	@Column
-	private String email_id;
+	private String emailId;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "location_id")
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "locationId")
 	private AddressEntity address;
 	
 	@OneToMany

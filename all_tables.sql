@@ -3,164 +3,156 @@ create database premiumcad;
 
 use premiumcad;
 
-create table Region (
-	region_id integer primary key,
-	city varchar(15),
+create table Address (
+	locationId int primary key,
+    streetAddress varchar(30),
+    city varchar(15),
     state varchar(15),
     country varchar(15)
 );
 
-create table Address (
-	location_id int primary key,
-    street_address varchar(30),
-	region_id integer references Region(region_id)
-);
-
 create table Clients (
-	client_id integer primary key,
-    client_name varchar(20) not null,
-    contact_number varchar(15) unique,
-    email_id varchar(30) unique,
-    location_id integer, 
-	foreign key(location_id) references Address(location_id)
+	clientId integer primary key,
+    clientName varchar(20) not null,
+    contactNumber varchar(15) unique,
+    emailId varchar(30) unique,
+    locationId integer, 
+	foreign key(locationId) references Address(locationId)
 );
 
 
 create table Employee (
-	employee_id integer primary key,
+	employeeId integer primary key,
     name varchar(30) not null,
-    email_id varchar(30) unique,
-    contact_number varchar(15) unique,
-    location_id integer,
-    foreign key(location_id) references Address(location_id)
+    emailId varchar(30) unique,
+    contactNumber varchar(15) unique,
+    locationId integer,
+    foreign key(locationId) references Address(locationId)
 );
 
 CREATE TABLE Roles
 (
-    role_id integer primary key,
+    id integer primary key,
     name VARCHAR(500) not null unique,
     description VARCHAR(200)
 );
 
 CREATE TABLE PERMISSION
 (
-    permission_id integer primary key,
+    id integer primary key,
     name VARCHAR(500) not null unique
 );
 
 CREATE TABLE ROLE_PERMISSION_MAP
 (
-    id integer primary key,
-    role_id integer,
-    foreign key(role_id) REFERENCES Roles(role_id),
-    permission_id integer REFERENCES PERMISSION(permission_id)
+    idRole integer,
+    foreign key(idRole) REFERENCES Roles(id),
+    idPermission integer REFERENCES PERMISSION(id)
 );
 
 create table SCOPE
 (
-    scope_id integer primary key,
-    name VARCHAR(500) not null unique,
+    id integer primary key,
+    name VARCHAR(500) not null,
     description VARCHAR(500)
 );
 
 create table ROLE_SCOPE_MAP
 (
-    id integer primary key,
-	role_id integer references ROLE(role_id),
-    scope_id integer references SCOPE(scope_id)
+    idRole  integer references ROLE(id),
+    idScope integer references SCOPE(id)
 );
 
 create table URL(
-	url_id integer primary key,
+	id integer primary key,
     url varchar(100) unique not null
 );
 
 create table URL_SCOPE_MAP
 (
-    id integer primary key,
-    id_url integer references URL(url_id),
-    id_scope integer references SCOPE(scope_id)
+    idUrl integer references URL(id),
+    idScope integer references SCOPE(id)
 );
 
 CREATE TABLE ROLE_DERIVATION_RULE
 (
-	id integer primary key,
-    role_id integer REFERENCES ROLE(role_id),
-    user_id integer references Emploee(employee_id)
+    id integer primary key,
+    idRole integer REFERENCES ROLE(id),
+    userId integer references Emploee(employeeId)
 );
 
-create table Work_Status_From (
-	status_name varchar(20) primary key
+create table WorkStatusFrom (
+	statusName varchar(20) primary key
 );
 
-create table Work_Status_To (
-	status_name varchar(20) primary key
+create table WorkStatusTo (
+	statusName varchar(20) primary key
 );
 
-create table Status_Flow (
-	status_flow_id integer primary key,
-	status_from varchar(20),
-    status_to varchar(20),
-    foreign key(status_from) references Work_Status_From(status_name),
-    foreign key(status_to) references Work_Status_To(status_name)
+create table StatusFlow (
+	statusFlowId integer primary key,
+	statusFrom varchar(20),
+    statusTo varchar(20),
+    foreign key(statusFrom) references WorkStatusFrom(statusName),
+    foreign key(statusTo) references WorkStatusTo(statusName)
 );
 
 create table Project (
-	project_id integer primary key,
-    project_name varchar(20) not null,
-    project_description varchar(100),
-    project_price double not null,
-    project_manager integer,
-    client_id integer,
-    foreign key (project_manager) references Employee(employee_id),
-    foreign key (client_id) references Clients(client_id)
+	projectId integer primary key,
+    projectName varchar(20) not null,
+    projectDescription varchar(100),
+    projectPrice double not null,
+    projectManager integer,
+    clientId integer,
+    foreign key (projectManager) references Employee(employeeId),
+    foreign key (clientId) references Clients(clientId)
 );
 
 create table Task (
-	task_id int primary key,
-    current_status integer,
-    task_description blob not null,
-	task_created_at datetime not null,
-    project_id integer not null,
-    assigned_to integer not null,
-    foreign key(current_status) references Status_Flow(status_flow_id),
-    foreign key(project_id) references Project(project_id),
-    foreign key(assigned_to) references Employee(employee_id)
+	taskId int primary key,
+    currentStatus integer,
+    taskDescription blob not null,
+	taskCreated_at datetime not null,
+    projectId integer not null,
+    assignedTo integer not null,
+    foreign key(currentStatus) references StatusFlow(statusFlowId),
+    foreign key(projectId) references Project(projectId),
+    foreign key(assignedTo) references Employee(employeeId)
 );
 
 create table Files (
-	file_id integer primary key,
-    file_path varchar(30) not null,
-    file_name varchar(20) not null,
-    task_id integer,
-    foreign key(task_id) references Task(task_id)
+	fileId integer primary key,
+    filePath varchar(30) not null,
+    fileName varchar(20) not null,
+    taskId integer,
+    foreign key(taskId) references Task(taskId)
 );
 
 
 create table Updates (
-	update_id integer primary key,
-    status_change_id integer, 
-    status_changed_at datetime not null,
-    task_id integer not null,
-    employee_id integer not null,
-    foreign key(task_id) references Task(task_id),
-    foreign key(employee_id) references Employee(employee_id),
-    foreign key(status_change_id) references Status_Flow(status_flow_id)
+	updateId integer primary key,
+    statusChangeId integer, 
+    statusChangedAt datetime not null,
+    taskId integer not null,
+    employeeId integer not null,
+    foreign key(taskId) references Task(taskId),
+    foreign key(employeeId) references Employee(employeeId),
+    foreign key(statusChangeId) references StatusFlow(statusFlowId)
 );
 
 create table Comments (
-	comment_id integer primary key,
-    comment_description varchar(200) not null,
-    comment_createdAt datetime,
-    task_id integer not null,
-    foreign key(task_id) references Task(task_id)
+	commentId integer primary key,
+    commentDescription varchar(200) not null,
+    commentCreatedAt datetime,
+    taskId integer not null,
+    foreign key(taskId) references Task(taskId)
 );
 
 create table Transactions (
-	transaction_id integer primary key,
-    end_date datetime,
-    task_id integer not null,
-    foreign key(task_id) references Task(task_id)
+	transactionId integer primary key,
+    endDate datetime,
+    taskId integer not null,
+    foreign key(taskId) references Task(taskId)
 );
 
 /*Insert into Region values (1, "Delhi", "Delhi", "India");
@@ -172,20 +164,14 @@ Insert into status_flow values (1,'abc','def');
 insert into employee values (1,'sagar','asfasfaf','1234567899',1);
 Insert into project values (1,'premium','ahsdjmasf j af',100,1,1);*/
 
-
-Insert into Region values (101, 'Delhi', 'Delhi', 'India');
-Insert into Region values (102, 'Bangalore', 'Karnataka', 'India');
-Insert into Region values (103, 'Faridabad', 'Haryana', 'India');
-Insert into Region values (104, 'New York City', 'New York', 'USA');
-
 /* Address  */
-Insert into Address values (1001, 'b-145 yamuna vihar', 101);
-Insert into Address values (1002, '1c1 hal city', 102);
-Insert into Address values (1003, '120 metropolis e-city', 102);
-Insert into Address values (1004, '1 flora', 103);
-Insert into Address values (1005, '45 bawana street', 101);
-Insert into Address values (1006, '78 no idea', 104);
-Insert into Address values (1007, '24 us state', 104);
+Insert into Address values (1001, 'b-145 yamuna vihar', 'Delhi', 'Delhi', 'India');
+Insert into Address values (1002, '1c1 hal city', 'Bangalore', 'Karnataka', 'India');
+Insert into Address values (1003, '120 metropolis e-city', 'Bangalore', 'Karnataka', 'India');
+Insert into Address values (1004, '1 flora', 'Faridabad', 'Haryana', 'India');
+Insert into Address values (1005, '45 bawana street', 'Faridabad', 'Haryana', 'India');
+Insert into Address values (1006, '78 no idea', 'New York City', 'New York', 'USA');
+Insert into Address values (1007, '24 us state', 'New York City', 'New York', 'USA');
 
 /* Clients  */
 Insert into Clients values (1, 'Shashank', '9013214213', 'safanfk@af.com', 1001);
@@ -210,24 +196,26 @@ Insert into project values (104,'pro','abcd',5845.45,3,3);
 
 
 /* work flow  */
-Insert into WORK_STATUS_From VALUES ('start');
-Insert into WORK_STATUS_From VALUES ('in progress');
-Insert into WORK_STATUS_From VALUES ('quality check');
-Insert into WORK_STATUS_From VALUES ('quality assurance');
+Insert into WORKSTATUSFrom VALUES ('start');
+Insert into WORKSTATUSFrom VALUES ('in progress');
+Insert into WORKSTATUSFrom VALUES ('quality check');
+Insert into WORKSTATUSFrom VALUES ('quality assurance');
 
 
-Insert into WORK_STATUS_To VALUES ('in progress');
-Insert into WORK_STATUS_To VALUES ('quality assurance');
-Insert into WORK_STATUS_To VALUES ('quality check');
-Insert into WORK_STATUS_To VALUES ('done');
+Insert into WORKSTATUSTo VALUES ('in progress');
+Insert into WORKSTATUSTo VALUES ('quality assurance');
+Insert into WORKSTATUSTo VALUES ('quality check');
+Insert into WORKSTATUSTo VALUES ('done');
 
 
-Insert into status_flow values (1,'start','in progress');
-Insert into status_flow values (2,'start','done');
-Insert into status_flow values (3,'in progress','done');
-Insert into status_flow values (4,'in progress','quality check');
-Insert into status_flow values (5,'quality check','quality assurance');
+Insert into statusFlow values (1,'start','in progress');
+Insert into statusFlow values (2,'start','done');
+Insert into statusFlow values (3,'in progress','done');
+Insert into statusFlow values (4,'in progress','quality check');
+Insert into statusFlow values (5,'quality check','quality assurance');
 
-select  c.client_name, count(*)
-from clients c join project p on c.client_id = p.client_id
-group by c.client_id;
+select  c.clientName, count(*)
+from clients c join project p on c.clientId = p.clientId
+group by c.clientId;
+
+select * from employee;

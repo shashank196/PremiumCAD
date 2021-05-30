@@ -1,5 +1,6 @@
 package com.Premium.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -7,11 +8,12 @@ import javax.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name = "work_status_from")
+@Table(name = "workStatusFrom")
 @Data
 public class WorkStatusFromEntity {
 
 	@Id
-	private String status_from;	
+	@Column(name  = "statusFrom")
+	private String statusFrom;	
 	
 }

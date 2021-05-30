@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,17 +23,17 @@ public class CommentsEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long comment_id;
+	private Long commentId;
 	
 	@Column
 	@NonNull
-	private String comment_description;
+	private String commentDescription;
 	
 	@Column
-	private Date comment_created_at;
+	private Date commentCreated_at;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "task_id", nullable = false)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "taskId", nullable = false)
 	private TaskEntity task;
 	
 }

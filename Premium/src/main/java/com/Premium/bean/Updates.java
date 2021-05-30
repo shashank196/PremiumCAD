@@ -12,9 +12,9 @@ import lombok.Data;
 @Data
 public class Updates {
 
-	private Date status_changed_at;
+	private Date statusChangedAt;
 	
-	private StatusFlowEntity status_change;
+	private StatusFlowEntity statusChange;
 	
 	private Task task;
 	

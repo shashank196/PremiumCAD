@@ -10,15 +10,15 @@ import lombok.Data;
 @Data
 public class Project {
 	
-	private Integer project_id;
+	private Integer projectId;
 	
-	private String project_name;
+	private String projectName;
 	
-	private String project_description;
+	private String projectDescription;
 	
-	private Double project_price;
+	private Double projectPrice;
 	
-	private Employee project_manager;
+	private Employee projectManager;
 	
 	private List<Task> tasks;
 	
