@@ -18,21 +18,21 @@ public class EmployeeServiceImpl implements EmployeeService{
 
 	@Autowired
 	private EmployeeRepository employeeRepository;
-	
+
 	@Override
 	public void addEmployee(Employee employee) {
 		EmployeeEntity employeeEntity = new EmployeeEntity();
 		AddressEntity addressEntity = new AddressEntity();
-		
+
 		employeeEntity.setContactNumber(employee.getContactNumber());
 		employeeEntity.setEmailId(employee.getEmailId());
 		employeeEntity.setName(employee.getName());
-		
+
 		addressEntity.setStreetAddress(employee.getAddress().getStreetAddress());
 		addressEntity.setCity(employee.getAddress().getCity());
 		addressEntity.setState(employee.getAddress().getState());
 		addressEntity.setCountry(employee.getAddress().getCountry());
-		
+
 		employeeEntity.setAddress(addressEntity);
 		employeeRepository.save(employeeEntity);
 	}
@@ -47,14 +47,14 @@ public class EmployeeServiceImpl implements EmployeeService{
 	public List<Employee> getEmployees() {
 		List<EmployeeEntity> employeeEntities =  employeeRepository.findAll();
 		List<Employee> employees = new ArrayList<Employee>();
-		
+
 		for (EmployeeEntity employeeEntity : employeeEntities) {
 			Adderss address = new Adderss(employeeEntity.getAddress().getStreetAddress(), employeeEntity.getAddress().getCity(),
-											 employeeEntity.getAddress().getState(), employeeEntity.getAddress().getCountry());
-			
+					employeeEntity.getAddress().getState(), employeeEntity.getAddress().getCountry());
+
 			Employee employee = new Employee(employeeEntity.getEmployeeId(), employeeEntity.getName(), employeeEntity.getContactNumber(), 
-											 employeeEntity.getEmailId(), address);
-			employees.add(employee);
+					employeeEntity.getEmailId(), address);
+			employees.add(employee);	
 		}
 		return employees;
 	}
@@ -74,7 +74,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 		Optional<EmployeeEntity> optional = getEmployee(employee_id);
 		EmployeeEntity employeeEntity = optional.get();
 		AddressEntity addressEntity = new AddressEntity();
-		
+
 		employeeEntity.setContactNumber(employee.getContactNumber());
 		employeeEntity.setEmailId(employee.getEmailId());
 
@@ -82,10 +82,10 @@ public class EmployeeServiceImpl implements EmployeeService{
 		addressEntity.setCity(employee.getAddress().getCity());
 		addressEntity.setState(employee.getAddress().getState());
 		addressEntity.setCountry(employee.getAddress().getCountry());
-		
+
 		employeeEntity.setAddress(addressEntity);
 		employeeRepository.save(employeeEntity);
 	}
-	
-	
+
+
 }
